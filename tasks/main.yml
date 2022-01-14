@@ -21,11 +21,12 @@
     groups:
       - docker
 
-- name: Download & install docker-compose script
-  template:
-    src: "docker-compose_install.sh.j2"
-    dest: "/home/{{ ansible_user }}/docker-compose_install.sh"
+- name: install docker-compose
+    shell:
+      cmd: "sudo curl -L https://github.com/docker/compose/releases/download/2.2.3/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose "
 
-- name: run script shell for install  docker-compose
-  command: "sh /home/{{ ansible_user }}/docker-compose_install.sh"
+- name: install docker-compose
+    shell:
+      cmd: "sudo chmod +x /usr/local/bin/docker-compose"
+
 
