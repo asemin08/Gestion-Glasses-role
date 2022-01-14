@@ -22,5 +22,4 @@
       - docker
 
 - name: run command for install docker-compose
-  command: "sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$({{ ansible_user }} -s)-$({{ ansible_user }} -m)" -o /usr/local/bin/docker-compose
-"
+  command: "sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$({{ ansible_user }} -s)-$({{ ansible_user }} -m)" -o /usr/local/bin/docker-compose"
