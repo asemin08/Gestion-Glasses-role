@@ -4,13 +4,13 @@
     repo: 'https://github.com/brikema/GestionGlasses.git'
     version : devops
     dest: /home/{{ ansible_user }}/GestionGlasses
-    
+
 - name: copy docker-compose.yml
   copy:
     src: /home/{{ ansible_user }}/GestionGlasses
-    dest: tmp/
+    dest: /home/{{ ansible_user }}/tmp/
 
 - name: test docker-compose
   docker_compose:
-    project_src: tmp/
+    project_src: /home/{{ ansible_user }}/tmp/
     state: present
