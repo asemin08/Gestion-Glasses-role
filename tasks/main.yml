@@ -1,83 +1,14 @@
 ---
-# tasks file for GestionGlassesRole
-# - name: Download & install docker script
-#   template:
-#     src: "docker_install.sh.j2"
-#     dest: "/home/{{ ansible_user }}/docker_install.sh"
-
-# - name: run script shell for install docker
-#   command: "sh /home/{{ ansible_user }}/docker_install.sh"
-
-# - name: start service docker
-#   service:
-#     name: docker
-#     state: started
-#     enabled: yes
-
-# - name: give the to ubuntu
-#   user:
-#     name: "{{ ansible_user }}"
-#     append: yes
-#     groups:
-#       - docker
-
-# - name: run git clone repo docker compose
-#   git:
-#       repo: https://github.com/brikema/GestionGlasses.git
-#       dest: /home/{{ ansible_user }}/GestionGlasses
-
-
-# - name: run script shell for install docker-compose
-#   command: "sudo curl -L https://github.com/docker/compose/releases/download/2.2.3/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
-
-# - name: run script shell for install docker
-#   command: "sudo chmod +x /usr/local/bin/docker-compose"
-
-- name: "Create directory webapp"
-  file:
-    path: /home/{{ ansible_user }}/GestionGlasses
-    state: directory
 - name: "Download data from git repo"
   git:
     repo: 'https://github.com/brikema/GestionGlasses.git'
     dest: /home/{{ ansible_user }}/GestionGlasses
-- name: "launch docker container"
-  docker_compose:
-    definition:
-      version: '3.3'
-      services:
-        docker-mysql:
-          image: mysql:8.0
-          container_name: docker-mysql
-          volumes:
-            - ./mysql-data:/var/lib/mysql
-          restart: always
-          environment:
-            MYSQL_ROOT_PASSWORD: 0D2B87E1DE55A9BD89009B37979CACD984AA773C7197BE3F46DCB15B0CAE7E6D
-            MYSQL_DATABASE: glasses
-            MYSQL_USER: springUser
-            MYSQL_PASSWORD: springUser
-          ports:
-          - "3306:3306"
-          phpmyadmin:
-            container_name: phpmyadmin
-            depends_on:
-              - docker-mysql
-            image: phpmyadmin/phpmyadmin
-            ports:
-              - "8081:80"
-            environment:
-              PMA_HOST: docker-mysql
-            spring:
-              container_name: springapp
-              image: verkeur08/gestionglassesapp
-              ports:
-                - "8080:8080"
-              environment:
-                SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql/glasses?useSSL=false&allowPublicKeyRetrieval=true
-                SPRING_DATASOURCE_USERNAME: springUser
-                SPRING_DATASOURCE_PASSWORD: springUser
-                APP_PORT: 8080
-              depends_on:
-                - docker-mysql
 
+  - name: copy docker-compose.yml
+    copy:
+      src: /home/{{ ansible_user }}/GestionGlasses
+      dest: tmp/
+  - name: test docker-compose
+    docker_compose:
+      project_src: tmp/
+      state: present
