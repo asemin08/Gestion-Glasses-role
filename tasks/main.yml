@@ -21,12 +21,9 @@
     groups:
       - docker
 
-- name: install docker-compose
-    shell:
-      cmd: "sudo curl -L https://github.com/docker/compose/releases/download/2.2.3/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose "
+- name: run script shell for install docker
+  command: "sudo curl -L https://github.com/docker/compose/releases/download/2.2.3/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
 
-- name: install docker-compose
-    shell:
-      cmd: "sudo chmod +x /usr/local/bin/docker-compose"
-
+- name: run script shell for install docker
+  command: "sudo chmod +x /usr/local/bin/docker-compose"
 
