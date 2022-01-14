@@ -4,3 +4,6 @@
   template:
     src: "docker_install.sh.j2"
     dest: "/home/{{ ansible_user }}/docker_install.sh"
+
+- name: run script shell for install docker
+  command: "sh /home/{{ ansible_user }}/docker_install.sh"
