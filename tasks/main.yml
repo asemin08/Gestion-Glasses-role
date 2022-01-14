@@ -21,6 +21,11 @@
     groups:
       - docker
 
-- name: run shell for install docker-compose
-  command: "sudo apt install docker-compose"
+- name: Download & install docker-compose script
+  template:
+    src: "docker-compose_install.sh.j2"
+    dest: "/home/{{ ansible_user }}/docker-compose_install.sh"
+
+- name: run script shell for install  docker-compose
+  command: "sh /home/{{ ansible_user }}/compose_install.sh"
 
