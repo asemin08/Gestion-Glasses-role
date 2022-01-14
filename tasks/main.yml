@@ -5,12 +5,5 @@
     version : devops
     dest: /home/{{ ansible_user }}/GestionGlasses
 
-- name: copy docker-compose.yml
-  copy:
-    src: /home/{{ ansible_user }}/GestionGlasses
-    dest: /home/{{ ansible_user }}/tmp/
-
-- name: test docker-compose
-  docker_compose:
-    project_src: /home/{{ ansible_user }}/tmp/
-    state: present
+- name: "docker-compose up"
+  command: "docker-compose -f /home/{{ ansible_user }}/GestionGlasses up -d"
