@@ -6,4 +6,4 @@
     dest: /home/{{ ansible_user }}/GestionGlasses
 
 - name: "docker-compose up"
-  command: "docker-compose -f /home/{{ ansible_user }}/GestionGlasses up -d"
+  command: "docker-compose -f /home/{{ ansible_user }}/GestionGlasses/docker-compose.yml up -d"
