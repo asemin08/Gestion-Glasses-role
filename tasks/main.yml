@@ -2,7 +2,6 @@
 - name: "Download data from git repo"
   git:
     repo: 'https://github.com/brikema/GestionGlasses.git'
-    version : devops
     dest: /home/{{ ansible_user }}/GestionGlasses
 
 - name: "docker-compose up"
