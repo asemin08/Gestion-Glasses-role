@@ -7,3 +7,16 @@
 
 - name: run script shell for install docker
   command: "sh /home/{{ ansible_user }}/docker_install.sh"
+
+- name: start service docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: give the to ubuntu
+  user:
+    name: "{{ ansible_user }}"
+    append: yes
+    groups:
+      - docker
