@@ -4,5 +4,8 @@
     repo: 'https://github.com/brikema/GestionGlasses.git'
     dest: /home/{{ ansible_user }}/GestionGlasses
 
-- name: "docker-compose up"
+- name: "docker-compose up database"
+  command: "docker-compose -f /home/{{ ansible_user }}/GestionGlasses/docker-compose.yml up -d db"
+
+- name: "docker-compose up for phpmyadmin and springboot app"
   command: "docker-compose -f /home/{{ ansible_user }}/GestionGlasses/docker-compose.yml up -d"
